@@ -12,6 +12,7 @@ public class MainActivity extends FragmentActivity {
 
         MainFragment fragment1 = new MainFragment();
         //MainFragment fragment2 = new MainFragment();
+
         getSupportFragmentManager().beginTransaction().add(R.id.main_activity_linear_layout, fragment1).commit();
         //getSupportFragmentManager().beginTransaction().add(R.id.main_activity_linear_layout, fragment2).commit();
 

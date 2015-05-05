@@ -5,7 +5,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.moonbloom.boast.Boast;
 
 import java.util.ArrayList;
 
@@ -40,6 +43,15 @@ public class MainFragment extends Fragment {
         listView = (ListView)rootView.findViewById(R.id.fragment_listview);
 
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AndroidLevel item = list.get(position);
+                Boast.makeText(MainFragment.this.getActivity(), item.getName() + "\n" + item.getVersionNumber() + "\n" + item.getApiLevel());
+                //Boast.makeText(MainFragment.this.getActivity(), "Is tablet: " + getResources().getBoolean(R.bool.is_tablet));
+            }
+        });
 
         return rootView;
     }

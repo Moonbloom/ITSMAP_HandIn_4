@@ -2,6 +2,8 @@
 
     <string name="app_name">HI414</string>
 
+    <bool name="is_tablet">false</bool>
+
     <string name="fragment_select_one_text">Please select from the menu</string>
 
 </resources>
