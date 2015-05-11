@@ -1,4 +1,4 @@
-package grp14.itsmap.com.hi414;
+package grp14.itsmap.com.hi414.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+
+import grp14.itsmap.com.hi414.models.AndroidLevel;
+import grp14.itsmap.com.hi414.R;
 
 public class ListViewAdapter extends ArrayAdapter<AndroidLevel> {
 

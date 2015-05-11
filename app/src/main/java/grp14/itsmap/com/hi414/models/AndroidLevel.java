@@ -1,4 +1,4 @@
-package grp14.itsmap.com.hi414;
+package grp14.itsmap.com.hi414.models;
 
 public class AndroidLevel {
 

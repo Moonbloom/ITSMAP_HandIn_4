@@ -6,4 +6,8 @@
 
     <string name="fragment_select_one_text">Please select from the menu</string>
 
+    <string name="content_fragment_api_level_headline">API Level:</string>
+    <string name="content_fragment_version_headline">Android version:</string>
+    <string name="content_fragment_description_headline">Description:</string>
+
 </resources>
