@@ -6,12 +6,14 @@ public class AndroidLevel {
     private String apiLevel;
     private String versionNumber;
     private String description;
+    private int imageResource;
 
-    public AndroidLevel(String name, String apiLevel, String versionNumber, String description) {
+    public AndroidLevel(String name, String apiLevel, String versionNumber, String description, int imageResource) {
         this.name = name;
         this.apiLevel = apiLevel;
         this.versionNumber = versionNumber;
         this.description = description;
+        this.imageResource = imageResource;
     }
 
     public String getName() {
@@ -28,5 +30,9 @@ public class AndroidLevel {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getImageResource() {
+        return imageResource;
     }
 }

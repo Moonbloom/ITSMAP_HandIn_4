@@ -2,12 +2,13 @@
 
     <string name="app_name">HI414</string>
 
-    <bool name="is_tablet">false</bool>
-
-    <string name="fragment_select_one_text">Please select from the menu</string>
+    <string name="fragment_select_one_text">Select a delicious dessert</string>
 
     <string name="content_fragment_api_level_headline">API Level:</string>
     <string name="content_fragment_version_headline">Android version:</string>
     <string name="content_fragment_description_headline">Description:</string>
+    <string name="content_fragment_current_version_headline">Current version:</string>
 
+    <string name="content_fragment_not_current_version_text">Not using this version</string>
+    <string name="content_fragment_using_current_version_text">Using this version !</string>
 </resources>

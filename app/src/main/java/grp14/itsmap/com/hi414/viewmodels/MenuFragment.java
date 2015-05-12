@@ -18,12 +18,14 @@ import grp14.itsmap.com.hi414.adapters.ListViewAdapter;
 import grp14.itsmap.com.hi414.interfaces.AndroidLevelSelectorInterface;
 import grp14.itsmap.com.hi414.models.AndroidLevel;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class MenuFragment extends Fragment {
 
     private ArrayList<AndroidLevel> list = new ArrayList<AndroidLevel>();
     private ListViewAdapter adapter;
 
     private AndroidLevelSelectorInterface androidLevelSelectorInterface;
+    private MainActivity mainActivity;
 
     @InjectView(R.id.fragment_listview) ListView listView;
 
@@ -41,7 +43,8 @@ public class MenuFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         androidLevelSelectorInterface = (AndroidLevelSelectorInterface) getActivity();
-        list = androidLevelSelectorInterface.getAndroidLevelList();
+        mainActivity = (MainActivity) getActivity();
+        list = mainActivity.getAndroidLevelList();
 
         adapter = new ListViewAdapter(getActivity(), R.layout.listview_item, list);
     }

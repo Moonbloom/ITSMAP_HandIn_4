@@ -3,88 +3,90 @@ package grp14.itsmap.com.hi414.viewmodels;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.widget.LinearLayout;
 
-import java.util.ArrayList;
-
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import grp14.itsmap.com.hi414.R;
 import grp14.itsmap.com.hi414.interfaces.AndroidLevelSelectorInterface;
-import grp14.itsmap.com.hi414.models.AndroidLevel;
-import grp14.itsmap.com.hi414.utilities.AndroidLevelLoader;
 
-public class MainActivity extends FragmentActivity implements AndroidLevelSelectorInterface {
+@SuppressWarnings("FieldCanBeLocal")
+public class MainActivity extends BaseFragmentActivity implements AndroidLevelSelectorInterface {
 
-    public enum PhoneMode {
+    private enum Orientation {
         PORTRAIT,
         LANDSCAPE
     }
 
-    public static String chosenLevelIndexTag = "chosen_level_index_tag";
+    public static final String chosenLevelIndexTag = "chosen_level_index_tag";
 
-    private final String selectedIndexTag = "selected_index";
-    private final String showDetailsTag = "show_details";
-
-    private ArrayList<AndroidLevel> androidLevelList;
-
-    private AndroidLevelLoader androidLevelLoader = new AndroidLevelLoader();
-
-    private int selectedALindex = 0;
-    private boolean showDetails = false;
+    public static final String chosenIndexTag = "chosen_index";
+    public static final String showDetailsTag = "show_details";
 
     private MenuFragment menuFragment;
     private ContentFragment contentFragment;
 
-    private PhoneMode phoneMode;
+    private Orientation phoneMode;
+
+    @InjectView(R.id.main_activity_list_layout) LinearLayout listLayout;
+    @InjectView(R.id.main_activity_content_layout) LinearLayout contentLayout;
+
+    private final String listLayoutTag = "list_layout_tag";
+    private final String contentLayoutTag = "content_layout_tag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        androidLevelList = androidLevelLoader.getAndroidLevels();
+        ButterKnife.inject(this);
 
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            phoneMode = PhoneMode.PORTRAIT;
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            phoneMode = Orientation.PORTRAIT;
         } else {
-            phoneMode = PhoneMode.LANDSCAPE;
+            phoneMode = Orientation.LANDSCAPE;
         }
 
-        MenuFragment fragment = new MenuFragment();
+        if(savedInstanceState == null) {
+            chosenLevelIndex = 0;
 
-        getSupportFragmentManager().beginTransaction().add(R.id.main_activity_linear_layout, fragment).commit();
+            menuFragment = new MenuFragment();
+            contentFragment = new ContentFragment();
 
-        //getSupportFragmentManager().beginTransaction().replace(android.R.id.content, fragment).commit();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.main_activity_list_layout, menuFragment, listLayoutTag)
+                    .add(R.id.main_activity_content_layout, contentFragment, contentLayoutTag)
+                    .commit();
+        } else {
+            chosenLevelIndex = savedInstanceState.getInt(chosenIndexTag);
+
+            menuFragment = (MenuFragment) getSupportFragmentManager().findFragmentByTag(listLayoutTag);
+            contentFragment = (ContentFragment) getSupportFragmentManager().findFragmentByTag(contentLayoutTag);
+        }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(selectedIndexTag, selectedALindex);
-        outState.putBoolean(showDetailsTag, showDetails);
+        outState.putInt(chosenIndexTag, chosenLevelIndex);
         super.onSaveInstanceState(outState);
     }
 
     private void showAndroidLevelDetails() {
-        Intent intent = new Intent(this, ContentActivity.class);
-        intent.putExtra(chosenLevelIndexTag, selectedALindex);
-        startActivity(intent);
+        if(phoneMode == Orientation.PORTRAIT) {
+            Intent intent = new Intent(this, ContentActivity.class);
+            intent.putExtra(chosenLevelIndexTag, chosenLevelIndex);
+            startActivity(intent);
+        } else {
+            contentFragment.setAndroidLevel(androidLevelList.get(chosenLevelIndex));
+        }
     }
 
     //region AndroidLevelSelectorInterface implementation
     @Override
     public void onAndroidLevelSelected(int position) {
-        selectedALindex = position;
+        chosenLevelIndex = position;
 
         showAndroidLevelDetails();
-    }
-
-    @Override
-    public ArrayList<AndroidLevel> getAndroidLevelList() {
-        return androidLevelList;
-    }
-
-    @Override
-    public AndroidLevel getCurrentSelectedAndroidLevel() {
-        return androidLevelList.get(selectedALindex);
     }
     //endregion
 }
