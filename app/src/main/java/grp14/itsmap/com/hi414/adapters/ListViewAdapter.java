@@ -9,29 +9,42 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import grp14.itsmap.com.hi414.models.AndroidLevel;
 import grp14.itsmap.com.hi414.R;
 
 public class ListViewAdapter extends ArrayAdapter<AndroidLevel> {
 
-    private List<AndroidLevel> values;
+    //region Variables
     private Context context;
+    private int resource;
+    private List<AndroidLevel> values;
+    //endregion
 
+    //region Injects
+    @InjectView(R.id.listview_item_textview) TextView textView;
+    //endregion
+
+    //region Constructor
     public ListViewAdapter(Context context, int resource, List<AndroidLevel> objects) {
         super(context, resource, objects);
 
         this.context = context;
+        this.resource = resource;
         this.values = objects;
     }
+    //endregion
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.listview_item, parent, false);
+            convertView = inflater.inflate(resource, parent, false);
         }
 
-        TextView textView = (TextView)convertView.findViewById(R.id.listview_item_textview);
+        ButterKnife.inject(this, convertView);
+
         AndroidLevel level = values.get(position);
         textView.setText(level.getName());
 

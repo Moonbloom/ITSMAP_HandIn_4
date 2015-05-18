@@ -21,29 +21,29 @@ import grp14.itsmap.com.hi414.models.AndroidLevel;
 @SuppressWarnings("FieldCanBeLocal")
 public class MenuFragment extends Fragment {
 
+    //region Variables
     private ArrayList<AndroidLevel> list = new ArrayList<AndroidLevel>();
     private ListViewAdapter adapter;
 
     private AndroidLevelSelectorInterface androidLevelSelectorInterface;
-    private MainActivity mainActivity;
+    private BaseFragmentActivity mainActivity;
+    //endregion
 
+    //region Injects
     @InjectView(R.id.fragment_listview) ListView listView;
 
     @OnItemClick(R.id.fragment_listview)
     public void listViewItemClick(AdapterView<?> parent, View view, int position, long id) {
         androidLevelSelectorInterface.onAndroidLevelSelected(position);
-
-        //AndroidLevel item = list.get(position);
-        //Boast.makeText(MenuFragment.this.getActivity(), item.getName() + "\n" + item.getVersionNumber() + "\n" + item.getApiLevel());
-        //Boast.makeText(MainFragment.this.getActivity(), "Is tablet: " + getResources().getBoolean(R.bool.is_tablet));
     }
+    //endregion
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         androidLevelSelectorInterface = (AndroidLevelSelectorInterface) getActivity();
-        mainActivity = (MainActivity) getActivity();
+        mainActivity = (BaseFragmentActivity) getActivity();
         list = mainActivity.getAndroidLevelList();
 
         adapter = new ListViewAdapter(getActivity(), R.layout.listview_item, list);

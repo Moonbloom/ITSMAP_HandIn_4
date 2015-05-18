@@ -9,6 +9,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
 
+        <!-- MainActivity -->
         <activity
             android:name=".viewmodels.MainActivity"
             android:label="@string/app_name" >
@@ -19,6 +20,7 @@
             </intent-filter>
         </activity>
 
+        <!-- ContentActivity -->
         <activity
             android:name=".viewmodels.ContentActivity"
             android:label="@string/app_name" >

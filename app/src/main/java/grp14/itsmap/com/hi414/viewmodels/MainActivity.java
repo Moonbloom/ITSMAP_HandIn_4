@@ -3,36 +3,25 @@ package grp14.itsmap.com.hi414.viewmodels;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.widget.LinearLayout;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import grp14.itsmap.com.hi414.R;
 import grp14.itsmap.com.hi414.interfaces.AndroidLevelSelectorInterface;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class MainActivity extends BaseFragmentActivity implements AndroidLevelSelectorInterface {
 
-    private enum Orientation {
-        PORTRAIT,
-        LANDSCAPE
-    }
-
-    public static final String chosenLevelIndexTag = "chosen_level_index_tag";
+    //region Variables
+    private final String listLayoutTag = "list_layout_tag";
+    private final String contentLayoutTag = "content_layout_tag";
 
     public static final String chosenIndexTag = "chosen_index";
-    public static final String showDetailsTag = "show_details";
 
     private MenuFragment menuFragment;
     private ContentFragment contentFragment;
 
     private Orientation phoneMode;
-
-    @InjectView(R.id.main_activity_list_layout) LinearLayout listLayout;
-    @InjectView(R.id.main_activity_content_layout) LinearLayout contentLayout;
-
-    private final String listLayoutTag = "list_layout_tag";
-    private final String contentLayoutTag = "content_layout_tag";
+    //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +63,7 @@ public class MainActivity extends BaseFragmentActivity implements AndroidLevelSe
     private void showAndroidLevelDetails() {
         if(phoneMode == Orientation.PORTRAIT) {
             Intent intent = new Intent(this, ContentActivity.class);
-            intent.putExtra(chosenLevelIndexTag, chosenLevelIndex);
+            intent.putExtra(chosenIndexTag, chosenLevelIndex);
             startActivity(intent);
         } else {
             contentFragment.setAndroidLevel(androidLevelList.get(chosenLevelIndex));
@@ -87,6 +76,13 @@ public class MainActivity extends BaseFragmentActivity implements AndroidLevelSe
         chosenLevelIndex = position;
 
         showAndroidLevelDetails();
+    }
+    //endregion
+
+    //region Orientation enum
+    private enum Orientation {
+        PORTRAIT,
+        LANDSCAPE
     }
     //endregion
 }

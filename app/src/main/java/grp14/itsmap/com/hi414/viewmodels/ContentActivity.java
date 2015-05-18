@@ -7,11 +7,11 @@ import grp14.itsmap.com.hi414.R;
 @SuppressWarnings("FieldCanBeLocal")
 public class ContentActivity extends BaseFragmentActivity {
 
-    private transient final String TAG = ((Object)this).getClass().getSimpleName();
-
+    //region Variables
     private ContentFragment contentFragment;
 
     private final String contentFragmentTag = "content_fragment_tag";
+    //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class ContentActivity extends BaseFragmentActivity {
         setContentView(R.layout.content_activity);
 
         if(savedInstanceState == null) {
-            chosenLevelIndex = getIntent().getIntExtra(MainActivity.chosenLevelIndexTag, 0);
+            chosenLevelIndex = getIntent().getIntExtra(MainActivity.chosenIndexTag, 0);
 
             contentFragment = new ContentFragment();
             getSupportFragmentManager().beginTransaction().add(R.id.content_activity_linear_layout, contentFragment, contentFragmentTag).commit();

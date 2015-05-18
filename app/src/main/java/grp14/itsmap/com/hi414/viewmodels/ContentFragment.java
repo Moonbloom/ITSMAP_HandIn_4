@@ -18,17 +18,21 @@ import grp14.itsmap.com.hi414.utilities.AndroidLevelLoader;
 @SuppressWarnings("FieldCanBeLocal")
 public class ContentFragment extends Fragment {
 
+    //region Variables
     private AndroidLevelLoader androidLevelLoader = new AndroidLevelLoader();
 
     private BaseFragmentActivity baseFragmentActivity;
     private AndroidLevel androidLevel;
+    //endregion
 
+    //region Injects
     @InjectView(R.id.content_fragment_logo_imageview) ImageView logoImageView;
     @InjectView(R.id.content_fragment_name_textview) TextView nameTextView;
     @InjectView(R.id.content_fragment_api_level_textview) TextView apiTextView;
     @InjectView(R.id.content_fragment_version_number_textview) TextView versionTextView;
     @InjectView(R.id.content_fragment_description_textview) TextView descriptionTextView;
     @InjectView(R.id.content_fragment_current_version_textview) TextView currentVersionTextView;
+    //endregion
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
